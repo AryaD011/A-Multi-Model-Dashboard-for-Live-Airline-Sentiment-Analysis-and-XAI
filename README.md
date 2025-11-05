@@ -1,54 +1,54 @@
-Live Airline Sentiment Analysis: A Multi-Model Dashboard
+Live Airline Sentiment Analysis: Multi-Model Dashboard.
 
 Short Description
 
-This project is a complete, end-to-end Natural Language Processing (NLP) application that classifies airline tweet sentiment. It addresses the problem that airlines have in processing high volumes of unstructured customer feedback on social media. Understanding this feedback in real-time is critical for brand management, customer service, and identifying operational issues.
+This project is a full end-to-end Natural Language Processing (NLP) application which is an airline sentiment in tweets. It deals with the issue that airlines face in terms of unstructured customer feedback in large quantities in social media. It is essential to manage the brand, customer service, and recognize operational problems based on the real-time feedback of this feedback.
 
-To solve this, we built a multi-page interactive web application that not only predicts sentiment (positive, neutral, negative) using three different models but also explains why a model made its decision using Explainable AI (XAI). The final product is a dashboard that can be used for single-tweet analysis, batch processing of CSV files, and simulating a live data feed, demonstrating a full data-product lifecycle.
+As a solution to this, we have created a multi-page interactive web application that does not only predict the sentiment (positive, neutral, negative) using three different models but also provides the reasons why a model has made its choice within the framework of Explainable AI (XAI). The end product is a dashboard that is capable of single-tweet analysis, CSV file batch processing, simulating a live data feed, and shows a complete data-product lifecycle.
 
 Dataset Source
 
-Source: The project uses the "Twitter US Airline Sentiment" dataset, a popular, human-annotated corpus from Kaggle.
+Data: The project is based on the popular, manually annotated, Kaggle dataset, which is called Twitter US Airline Sentiment.
 
-Data Size: We are working with 14,640 real tweets, each manually labeled as positive, neutral, or negative. The dataset is highly imbalanced, with negative tweets making up the majority of the data.
+Data Size: We have 14640 real tweets, which were manually marked as positive, neutral, or negative. The data is much skewed with most of the data comprising negative tweets.
 
-Preprocessing: The raw dataset was used directly. No filtering was performed. All "special treatment" was performed inside the model pipelines to make the process repeatable and ready for live data:
+Preprocessing: The raw data was directly taken. No filtering was performed. The model pipelines were used to carry out all the special treatment in order to repeat the process and prepare it using real data:
 
-Text Cleaning: All text was converted to lowercase and punctuation was removed.
+Text Cleaning: Text was also changed to lower case and all punctuations were deleted.
 
-Stop Word Removal: Common English "stop words" (like 'the', 'is', 'at') were filtered out.
+Stop Word Removal: "stop words" in the English language (such as the, is, at) were removed.
 
-Vectorization (for ML): The cleaned text was converted into a numerical matrix using TfidfVectorizer.
+Vectorization (ML): TfidfVectorizer was used to transform the cleaned text into a numerical matrix.
 
-Tokenization & Padding (for DL): For the LSTM model, the text was converted into sequences of integers using Tokenizer and padded to a uniform length of 50 tokens.
+Tokenization & Padding (DL): In the case of the LSTM model, the text was turned into a sequence of integers with the help of the Tokenizer and padded to the same size of 50 tokens.
 
-Label Encoding: The target labels ('negative', 'neutral', 'positive') were encoded into integers (0, 1, 2) for the Deep Learning model.
+Label Encoding: Deep Learning model The Deep Learning model was coded using integers (0, 1, 2) representing the target labels (negative, neutral, positive).
 
 Methods
 
-Our approach was to solve this as a supervised classification problem by comparing multiple models of increasing complexity. This allows us to find the best trade-off between performance, speed, and interpretability.
+This was solved as a supervised classification problem where we compared a set of models of increasing complexity. This will enable us to be able to find the optimal trade-off between performance, speed, and interpretability.
 
-We considered using only a Deep Learning model but chose to include ML models as a baseline, which is a standard academic and professional practice to justify complex model choices.
+We thought of just using a Deep Learning model but decided to have some ML models to serve as a baseline as is a common academic and professional convention to explain the need to use complex models.
 
-ML - Naive Bayes (Baseline): We used MultinomialNB as our baseline. This model is extremely fast and works surprisingly well with text, making it a perfect benchmark.
+ML - Naive Bayes (Baseline): MultinomialNB was used as our baseline. This model is very quick and surprisingly effective with text, and it is an ideal benchmark.
 
-ML - Tuned SVM (Primary Model): We chose SVC(kernel='linear') as our primary workhorse model. SVMs are highly effective in high-dimensional sparse spaces, which is exactly what text data becomes after TF-IDF vectorization. We used GridSearchCV to find the optimal hyperparameters for C (regularization) and ngram_range (word pairs), ensuring maximum performance.
+ML - Tuned SVM (Primary Model):Our primary workhorse model is SVC(kernel=linear). The performance of SVMs is very good in high dimensional sparse spaces, and that is what happens to text data after TF-IDFvectorization. Our preferred hyperparameters are C (regularization) and ngram range (word pairs) which were optimized using GridSearchCV so as to guarantee optimal performance.
 
-DL - LSTM (Advanced Alternative): As an advanced alternative, we built a Recurrent Neural Network (RNN) using tensorflow.keras. Unlike the other models, an LSTM can understand word order and context, which can be critical for understanding nuances like sarcasm.
+DL - LSTM (Advanced Alternative): We developed a Recurrent Neural Network (RNN) with the help of tensorflow.keras as an advanced alternative. Contrary to the other models, an LSTM is able to appreciate word sequence and context which can be essential in discerning details such as sarcasm.
 
-Explainable AI - LIME: We didn't just want a "black box" prediction. We integrated LimeTextExplainer to analyze our best ML model (the SVM). LIME explains individual predictions by showing which specific words in a tweet contributed to or against a prediction. This is our approach to adding transparency and trust to the model.
+Explainable AI - LIME: it was not enough to us to have a black box prediction. We have used LimeTextExplainer to analyze our most effective ML model (the SVM). From the individual predictions, LIME displays which words in a particular tweet played a part in a prediction or went against a prediction. This is how we are going to provide transparency and trust on the model.
 
 Steps to run the code
 
-You must have Python 3.10 or 3.11 installed.
+Python 3.10 or 3.11 has to be installed.
 
-1. Clone or Download the Project
+1. Duplicate or Replicate the Project.
 
-Get all the files and folders for this project onto your computer.
+Put all files and folders of this project in your computer.
 
-*// 2. Create a Virtual Environment (Recommended)
+*// 2. Design an imaginary setting (Abstractly) (Recommended)
 
-# Create a new environment in a folder named 'venv'
+Design a new setting inside the folder named as venv.
 python -m venv venv
 
 # Activate the environment
@@ -58,44 +58,44 @@ python -m venv venv
 source venv/bin/activate //*
 
 
-3. Install All Required Libraries
+3. Install Install All necessities Libraries.
 
-This project needs several libraries. You can install them all at once using the requirements.txt file.
+A number of libraries are required in this project. The requirements.txt file allows you to install all of them at the same time.
 
-pip install -r requirements.txt
+pip install requirements.txt.
 
 
 4. Train The Models (Run This Once)
 
-You must run the train.py script to train all three models and save them to your folder.
+To train all the three models, you need to run the train.py script and save them to your folder.
 
-WARNING: This step will take a long time (15-30+ minutes), mainly because of the GridSearchCV for the SVM. You only have to do this once.
+DANGER: The step will consume a lot of time (15-30+ minutes), primarily due to the GridSearchCV of the SVM. You only have to do this once.
 
 python train.py
 
 
-You will see several new files appear, like svm_model.joblib, nb_model.joblib, and dl_model.keras.
+Some new files will appear such as svm model joblib, nb model joblib and learning model in the form of keras.
 
 5. Run the Streamlit App
 
-Once the models are trained, you can start the web application.
+After the training of the models, the web application can be launched.
 
 python -m streamlit run app.py
 
 
-Your web browser should automatically open to the app.
+This will open the web.
 
 Experiments/Results Summary
 
-We conducted experiments to find the best-performing model. Our "experiment" involved training three distinct models and, for the SVM, conducting a hyperparameter search.
+We tested different models to determine the most performing model. We used three different models and (in the case of SVM) a hyperparameter search as part of our experiment.
 
 Hyperparameter Experiment
 
-We used GridSearchCV to test various settings for our SVC model. The search concluded that the best-performing parameters were {'clf__C': 1, 'tfidf__ngram_range': (1, 2)}, which means a regularization strength of 1.0 and using both single words (1-grams) and two-word pairs (2-grams) were optimal.
+GridSearchCV was used to evaluate different settings of our SVC model. The final parameters that appeared to be most effective were {'clf__C': 1, 'tfidf__ngram_range': (1, 2)'}, meaning that the strength of regularization of 1.0 and the two-word combinations (2-grams) were the most successful.
 
 Performance Comparison
 
-The models were evaluated on a 20% test split of the data (this was done in our sentiment_analysis.py script). The results clearly show the Tuned SVM is the most balanced and accurate model, while the Naive Bayes model performed poorly.
+On this test split (20 percent), the models were tested (this was performed in our sentiment_analysis.py script). The findings provide evident results that Tuned SVM is the most balanced and accurate model and Naive Bayes model did not operate properly.
 
 Model
 
@@ -121,7 +121,7 @@ LSTM (DL)
 
 ~76.8%
 
-(Note: Scores are from the test run and may vary slightly on different training runs)
+Test run scores indicate the mean between the two runs (Note: the scores are obtained during the running of the test and might differ slightly when the test is run again).
 
 
 
@@ -129,48 +129,11 @@ LSTM (DL)
 
 Results Visualization
 
-The "Model Performance" tab of the app shows a confusion matrix plot for all three models.
+The confusion matrix plot of all three models is displayed in the tab of the app named Model Performance.
 
-The Naive Bayes matrix shows a heavy bias, misclassifying most neutral and positive tweets as negative.
+The Naive Bayses matrix is highly skewed with majority of the neutral and positive tweets being classified as negative.
 
-The Tuned SVM and LSTM matrices show a much stronger "diagonal" line, indicating they are far more balanced and accurate at identifying all three classes correctly.
+The Tuned SVM matrix and LSTM matrix have a significantly stronger "diagonal" line; hence, they are much more balanced and precise in recognizing all three types properly.
 
-We also used LIME to gain insight into how the SVM model works. The "Model Explanation" page of the app demonstrates this, highlighting (in green/red) the words that the model used to make its decision. This is a key visualization technique for understanding model behavior.
+LIME was also the tool we applied to understand the functioning of the SVM model. This is evidenced by the "Model Explanation" page of the app, where the words that the model considered to make its decision are highlighted (in green/red). It is one of the major visualizations in the behavior of models.
 
-Conclusion
-
-Key Result: Our comparative analysis found that the Tuned SVM is the best all-around model for this task, slightly outperforming the much more complex LSTM and significantly outperforming the Naive Bayes baseline.
-
-What We Learned: We learned that for this text classification task, a well-tuned classic ML model (SVM) with good text features (TF-IDF n-grams) can be just as, if not more, effective than a Deep Learning model. We also learned that building a functional model is only half the battle; creating a usable, interactive, and interpretable application (with tools like Streamlit and LIME) is what turns a project into a true data product.
-
-Project Structure
-
-NLP-Project/
-├── .streamlit/
-│   └── config.toml        # The custom theme for the app
-├── pages/
-│   ├── 1_Batch_Analyzer.py  # Page 2 of the app
-│   ├── 2_Live_Feed_Simulator.py # Page 3 of the app
-│   └── 3_Model_Explanation.py # Page 4 of the app
-├── app.py                 # The main Home page of the app
-├── train.py               # The script to train all models
-├── requirements.txt       # List of all libraries to install
-├── Tweets.csv             # The raw dataset
-└── ... (model files like svm_model.joblib)
-
-
-References
-
-Dataset: Kaggle: Twitter US Airline Sentiment
-
-Libraries:
-
-Streamlit
-
-Scikit-learn (SVM, Naive Bayes, GridSearchCV)
-
-TensorFlow/Keras (LSTM)
-
-LIME (Explainable AI)
-
-Pandas
